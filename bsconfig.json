@@ -1,10 +1,10 @@
 {
   "name": "reason-apollo",
-  "sources": [
-    "src"
-  ],
-  "bs-dependencies": [
-    "reason-react"
-  ],
+  "sources": ["src"],
+  "reason": {
+    "react-jsx": 2
+  },
+  "bs-dependencies": ["reason-react"],
+  "bsc-flags": ["-bs-super-errors"],
   "refmt": 3
 }
