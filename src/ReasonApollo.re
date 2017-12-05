@@ -5,7 +5,8 @@ module type ClientConfig = {type responseType; type variables;};
 module Create = (CreationConfig: CreationConfig) => {
   Js.log("Test");
   let authHeadder: ApolloClient.authOptions = {"authorization": CreationConfig.auth};
-  let contextLink = ApolloClient.setContext(authHeadder);
+  let contextLink =
+    ApolloClient.setContext((_, authHeadder) => {"headers": "", "authorization": ""});
   let httpLinkOptions: ApolloClient.linkOptions = {"uri": CreationConfig.uri};
   let apolloClientOptions: ApolloClient.clientOptions = {
     "cache": ApolloClient.inMemoryCache(),
