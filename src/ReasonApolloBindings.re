@@ -5,8 +5,20 @@ module type ClientConfig = {type responseType; type variables;};
 module Create = (CreationConfig: CreationConfig) => {
   Js.log("Test");
   let authHeadder: ApolloClient.authOptions = {"authorization": CreationConfig.auth};
+
+
+  let constructHeaders = [%bs.raw {|function(a, { headers }) {
+    return {
+      headers: {
+        ...headers,
+        authorization: token ? `Bearer ${CreationConfig.auth}` : null,
+      }
+    }
+  }|}];
+
+
   let contextLink =
-    ApolloClient.setContext((_, authHeadder) => {"headers": "", "authorization": ""});
+    ApolloClient.setContext(constructHeaders);
   let httpLinkOptions: ApolloClient.linkOptions = {"uri": CreationConfig.uri};
   let httpLink = ApolloClient.httpLink(httpLinkOptions);
   let apolloClientOptions: ApolloClient.clientOptions = {

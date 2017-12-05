@@ -14,6 +14,7 @@ type linkOptions = {. "uri": string};
 
 type authOptions = {. "authorization": string};
 
+
 /* The return value from the callback in setContext */
 type foobar = {. "headers": string, "authorization": string};
 type bar;
