@@ -10,7 +10,7 @@ module Create = (CreationConfig: CreationConfig) => {
         console.error('Failed to get authroization token, also make sure the - let auth = "token"; - is the second parameter ');
       }
       return {
-        headers: Object.assign({}, request.headers, {authorization: 'Bearer ' + CreationConfig[1]})
+        headers: Object.assign({}, request.headers, {Authorization: 'Bearer ' + CreationConfig[1]})
       }
     }|}
   ];
