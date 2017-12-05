@@ -5,12 +5,12 @@ module type ClientConfig = {type responseType; type variables;};
 module Create = (CreationConfig: CreationConfig) => {
   let authHeadder: ApolloClient.authOptions = {"authorization": CreationConfig.auth};
   let constructHeaders = [%bs.raw
-    {|function(a, { headers }) {
+    {|function(a,  request) {
+      if(!CreationConfig[1] || CreationConfig.length < 2) {
+        console.error('Failed to get authroization token, also make sure the - let auth = "token"; - is the second parameter ');
+      }
       return {
-        headers: {
-          ...headers,
-          authorization: token ? `Bearer ${CreationConfig.auth}` : null,
-        }
+        headers: Object.assign({}, request.headers, {authorization: 'Bearer ' + CreationConfig[1]})
       }
     }|}
   ];
